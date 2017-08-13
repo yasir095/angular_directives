@@ -1,0 +1,15 @@
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th ng-repeat="label in labels">{{label}}</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="(key, dataItem) in tableData">
+                <td ng-repeat="item in dataItem" ng-class="{selected: item.selected}">{{item.value}}</td>
+            </tr>
+        </tbody>
+        <tr>
+    </table>
+</div>

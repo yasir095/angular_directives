@@ -1,0 +1,35 @@
+{
+  "name": "suade",
+  "version": "0.1",
+  "description": "",
+  "main": "index",
+  "authors": [
+    "yasir"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "angular-material": "^1.1.4",
+    "angular-route": "^1.6.5",
+    "jquery": "^3.2.1",
+    "bootstrap": "^3.3.7",
+    "csvtojson": "^1.1.7",
+    "angular-upload": "^1.0.12",
+    "chart.js": "^2.6.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.0"
+  },
+  "install": {
+    "path": "lib/"
+  }
+}
