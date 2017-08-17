@@ -14,6 +14,7 @@
         {
             //@todo: implement fallback here.
             //show error , library required
+            console.log("No chart library found..");
         }
 
         return $window.Chart;

@@ -1,4 +1,5 @@
-<p>Fill out our <a href="http://static.mysite.com/resources/sample_graph.csv">csv template</a> </p>
+<div class="alert alert-danger" role="alert" ng-show="errorMessage">{{errorMessage}}</div>
+<p>Fill out our <a href="http://static.mysite.com/resources/sample_graph_CDN_resourse.csv">csv template</a> </p>
 
 <Button class="btn btn-lg btn-primary btn-upload" upload-button url="/upload"
         on-upload="onUploadStart(files)"

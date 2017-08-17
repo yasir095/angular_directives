@@ -23,6 +23,9 @@ router.post('/', multipartMiddleware, function(req, res, next)
         {
             //first row will be headers , exclude them from data.
             headers = Object.keys(csvRow);
+            data.push(Object.keys(csvRow).map(function(key) {
+                return csvRow[key];
+            }));
         }
         else
         {

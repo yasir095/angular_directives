@@ -11,23 +11,56 @@
     {
         return {
             restrict: 'E',
-            require: '^viewBinder',
-            link: function ($scope, element, attrs, viewBinderController)
+            scope: {
+                labels: '=',
+                data: '=',
+                selectIndex:'='
+            },
+            link: function ($scope, element, attrs, ctrl)
             {
-                $scope.tableData = viewBinderController.tableFormattedData;
-                $scope.labels = viewBinderController.labels;
+                $scope.tableFormattedData = updateTableData($scope.data, $scope.selectIndex);
 
-                $scope.$watchCollection("tableData", function (value) {
-                   console.log("upate| : ", value);
+                //These watchers can be removed if data is injected through service,
+                //if watchers become expensive then use service for data sharing and save those object
+                //so that these object doesn't need to be formed on each change.
+                $scope.$watch("selectIndex", function (value)
+                {
+                    $scope.tableFormattedData = updateTableData($scope.data, $scope.selectIndex);
+
+                }, true);
+
+                $scope.$watch("data", function (value)
+                {
+                    $scope.tableFormattedData = updateTableData($scope.data, $scope.selectIndex);
                 });
 
-                $scope.$watchCollection(function () {
-                    return viewBinderController.tableFormattedData;
-                }, function (value) {
-                    console.log("upate| : ", value);
-                });
+                function updateTableData(data, selectIndex)
+                {
+                    var tableFormattedData = [];
+                    var dataSize = data.length;
 
-                console.log("tableScope: ", $scope);
+                    for(var index = 0; index<dataSize; index++)
+                    {
+                        var subArraySize = data[index].length;
+                        var subArray = [];
+
+                        for(var subIndex=0; subIndex<subArraySize; subIndex++)
+                        {
+                            var dataObject =
+                            {
+                                selected: (selectIndex !== undefined) ? Boolean(selectIndex[index+"."+subIndex]) : false,
+                                value: data[index][subIndex]
+                            };
+
+                            subArray.push(dataObject);
+                        }
+
+                        tableFormattedData.push(subArray);
+                    }
+
+                    return tableFormattedData;
+                }
+
             },
             templateUrl: '/angular/templates/tableview.html'
         };

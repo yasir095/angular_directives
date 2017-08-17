@@ -6,18 +6,29 @@
     'use strict';
 
     angular.module("dash").directive("fileUploader", fileUploader);
-    fileUploader.$inject = ['dataHandlerService'];
+    fileUploader.$inject = ['dataManager'];
 
-    function fileUploader(dataHandlerService)
+    /**
+     * Directive just provide functionality for file upload and then store data through dataManager service.
+     * You can inject dataManager in your directive or controller to access that data.
+     * This directive has an isolated scope.
+     * @param dataHandlerService
+     * @returns {{restrict: string, scope: {}, link: link, templateUrl: string}}
+     */
+    function fileUploader(dataManager)
     {
         return {
-            restrict: 'EA',
+            restrict: 'E',
+            scope:{
+
+            },
             link: function ($scope, element, attrs, ctrl)
             {
-                $scope.model = dataHandlerService.graphData;
+                $scope.model = dataManager.graphData;
 
                 $scope.onUploadStart = function(file)
                 {
+                    //@todo: show loader here.
                     //console.log("start: ", file);
                 };
 
@@ -25,10 +36,19 @@
                 {
                     if(Boolean(response.data.error))
                     {
+                        //@todo: show error dialog.
 
+                        $scope.model.data = [];
+                        $scope.model.labels = [];
+
+                        $scope.errorMessage = response.data.message;
+
+                        //element.append(angular.element(html));
                     }
                     else
                     {
+                        $scope.errorMessage = false;
+
                         var data = response.data.data;
                         var labels = response.data.headers;
 

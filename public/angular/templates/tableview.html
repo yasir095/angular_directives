@@ -6,8 +6,9 @@
         </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="(key, dataItem) in tableData">
-                <td ng-repeat="item in dataItem" ng-class="{selected: item.selected}">{{item.value}}</td>
+            <tr ng-repeat="(key, dataItem) in tableFormattedData track by 'row'+key">
+                <td ng-repeat="(itemIndex, item) in dataItem track by 'col'+itemIndex" ng-class="{selected: item.selected}">{{item.value}}</td>
+                <!--<td ng-repeat="(itemIndex, item) in dataItem track by 'col'+itemIndex" >{{item}}</td>-->
             </tr>
         </tbody>
         <tr>

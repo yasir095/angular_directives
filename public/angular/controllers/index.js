@@ -8,40 +8,39 @@ angular
 
 indexController.$inject = [
     '$scope',
-    'dataHandlerService'
+    'dataManager'
 ];
 
-function indexController($scope, dataHandlerService)
+function indexController($scope, dataManager)
 {
-    $scope.model = dataHandlerService.graphData;
+    // $scope.model.labels = ["January", "February", "March", "April", "May", "June", "July"];
+    // $scope.model.data = [
+    //     [65, 59, 80, 81, 56, 55, 40],
+    //     [28, 48, 40, 19, 86, 27, 90],
+    //     [32, 56, 23, 49, 72, 64, 100]
+    // ];
 
-    $scope.model.labels = ["January", "February", "March", "April", "May", "June", "July"];
-    $scope.model.data = [
-        [65, 59, 80, 81, 56, 55, 40],
-        [28, 48, 40, 19, 86, 27, 90],
-        [32, 56, 23, 49, 72, 64, 100]
-    ];
 
-    console.log("indexScope: ", $scope);
+    //you can also directly inject this service in directive and then you don't need watchers inside directives.
+    //depends on the approach unless you want directive to be totally separated from dependancy then include watchers,
+    //which will be an overhead if data is considerabley large.
+    $scope.model = dataManager.graphData;
+
+    $scope.model.selectIndex = {};
 
     $scope.updateResponse = function (itemClicked)
     {
-        $scope.tableData[itemClicked.index][itemClicked.subIndex].selected = true;
-
-        console.log("|Clicked| ", itemClicked, $scope.tableData[itemClicked.index][itemClicked.subIndex]);
+        $scope.model.selectIndex = {};
+        $scope.model.selectIndex[itemClicked.index+"."+itemClicked.subIndex] = true;
     };
 
-    // $scope.$watchCollection("model.tableFormattedData", function (value) {
-    //    console.log("upate: ", value);
+    //runs on next digest cycle
+    // $timeout(function () {
+    //     $scope.model.data[itemClicked.index][itemClicked.subIndex] = 99;
     // });
 
-    // $scope.onClick = function(dataSet, index, subIndex)
-    // {
-    //     $scope.model.tableFormattedData[index][subIndex].selected = true;
-    //     $scope.model.data[index][subIndex].value = 99;
-    //
-    //     console.log("R: ", index, subIndex);
-    //     console.log($scope.model.tableFormattedData[index][subIndex]);
-    // }
-
+    //runs on same diges cycle.
+    // $scope.$evalAsync(function(){
+    //     $scope.model.data[itemClicked.index][itemClicked.subIndex] = 99;
+    // });
 }

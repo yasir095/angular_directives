@@ -6,13 +6,15 @@
     'use strict';
 
     angular.module("dash").directive("menu", menu);
-    menu.$inject = ['$location', '$window'];
+    menu.$inject = ['$location'];
 
-    function menu($location, $window)
+    function menu($location)
     {
         return {
             restrict: 'EA',
-            scope: false,
+            scope: {
+
+            },
             link: function ($scope, element, attrs, ctrl)
             {
                 //build menu here.

@@ -2,10 +2,8 @@
     <h1>Select a file to upload</h1>
     <file-uploader></file-uploader>
     <div class="row">
-        <view-binder labels="model.labels" data="model.data">
-            <chart class="col-lg-6 col-md-6 col-sm-6 col-xs-12" on-click="updateResponse"></chart>
-            <tableview class="col-lg-6 col-md-6 col-sm-6 col-xs-12"></tableview>
-        </view-binder>
+        <graph-view class="col-lg-6 col-md-6 col-sm-6 col-xs-12" labels="model.labels" data="model.data" on-click="updateResponse"></graph-view>
+        <tableview class="col-lg-6 col-md-6 col-sm-6 col-xs-12" labels="model.labels" data="model.data" select-index="model.selectIndex"></tableview>
     </div>
 </div>
 <!--accept="{{acceptTypes}}"-->
